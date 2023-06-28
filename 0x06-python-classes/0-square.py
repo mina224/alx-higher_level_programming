@@ -1,12 +1,7 @@
 #!/usr/bin/python3
+""" Module contains empty class Square """
+
+
 class Square:
-    """
-    This class represents a square.
-
-    Attributes:
-        No attributes.
-
-    Methods:
-        No methods.
-    """
+    """ This is an empty class. """
     pass
