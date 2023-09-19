@@ -1,22 +1,18 @@
 #!/usr/bin/python3
+"""lists all states with a name starting with N
+(upper N) from the database hbtn_0e_0_usa"""
 
-"""Module that lists all states from the hbtn_0e_0_usa database."""
+if __name__ == '__main__':
 
-import sys
-import MySQLdb
+    import MySQLdb
+    import sys
 
-if __name__ == "__main__":
+    db = MySQLdb.connect(host='localhost', port=3306,
+                         user=sys.argv[1], passwd=sys.argv[2], db=sys.argv[3])
 
-    # Get MySQL credentials and search name from command-line arguments
-    # and # Connect to MySQL server
-    db = MySQLdb.connect(user=sys.argv[1], passwd=sys.argv[2], db=sys.argv[3])
-    c = db.cursor()
-
-    # Execute the SQL query to retrieve states with the specified name
-    c.execute("SELECT * \
-                 FROM `states` \
-                WHERE BINARY `name` = '{}'".format(sys.argv[4]))
-
-    # Fetch all rows and print the states
-    [print(state) for state in c.fetchall()]
-
+    cur = db.cursor()
+    cur.execute("""SELECT * FROM states WHERE name
+                LIKE BINARY 'N%' ORDER BY states.id ASC""")
+    rows = cur.fetchall()
+    for row in rows:
+        print(row)
